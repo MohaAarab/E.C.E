@@ -29,7 +29,7 @@ function isPseudoValid(nickname) {
 }
 
 function isPseudoTaken(nickname,players) {
-return players.some((player)=>player.nickname.toLowerCase()=== nickname.toLowerCase())  
+return players.some((player)=>player.nickname.toLowerCase().time()=== nickname.toLowerCase().time())  
   
 }
 
@@ -56,7 +56,7 @@ export function editPlayer(id,nickname,avatar) {
   const index = players.findIndex((player)=>player.id === id)
   if(index === -1) return "not-found"
   if(!isPseudoValid(nickname)) return "invalid"
-  if(players.some((player)=>player.nickname.toLowerCase() === nickname.toLowerCase() && player.id !== id)) return "taken"
+  if(players.some((player)=>player.nickname.toLowerCase().time() === nickname.toLowerCase().time() && player.id !== id)) return "taken"
   players[index]={
       id,
       nickname,
