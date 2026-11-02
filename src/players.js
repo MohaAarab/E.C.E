@@ -69,4 +69,11 @@ export function editPlayer(id,nickname,avatar) {
   
 
 
-export function deletePlayer() {}
+export function deletePlayer(id) {
+  const players=getPlayer()
+  const index = players.findIndex((player)=>player.id === id)
+  if(index === -1) return "not-found"
+  players.splice(index,1)
+  writeToStorage("players",players)
+  return "success"
+}
