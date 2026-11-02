@@ -4,7 +4,7 @@
 export function readFromStorage(key, fallback = []) {
     const data = localStorage.getItem(key);
     if(data === null){
-        return []
+        return fallback
     }
     return JSON.parse(data)
 }

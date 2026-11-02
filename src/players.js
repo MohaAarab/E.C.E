@@ -51,5 +51,22 @@ export function addPlayer(nickname,avatar) {
 
 }
 
-export function editPlayer() {}
+export function editPlayer(id,nickname,avatar) {
+  const players=getPlayer()
+  const index = players.findIndex((player)=>player.id === id)
+  if(index === -1) return "not-found"
+  if(!isPseudoValid(nickname)) return "invalid"
+  if(players.some((player)=>player.nickname.toLowerCase() === nickname.toLowerCase() && player.id !== id)) return "taken"
+  players[index]={
+      id,
+      nickname,
+      avatar,
+      createdAt:players[index].createdAt
+  }
+  writeToStorage("players",players)
+  return "success"
+  }
+  
+
+
 export function deletePlayer() {}
