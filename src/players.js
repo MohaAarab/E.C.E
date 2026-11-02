@@ -28,27 +28,28 @@ function isPseudoValid(nickname) {
   return /^[A-Za-z0-9]{3,15}$/.test(nickname);
 }
 
-function isPseudoTacken(nickname) {
-  const player = getPlayer();
-  for (let i = 0; i < player.length; i++) {
-    if (player[i].nickname.toLowerCase() === nickname.toLowerCase()) {
-      return true;
-    }
-  }
-  return false;
+function isPseudoTaken(nickname,players) {
+return players.some((player)=>player.nickname.toLowerCase()=== nickname.toLowerCase())  
+  
 }
 
 
-export function addPlayer() {
+export function addPlayer(nickname,avatar) {
   const players=getPlayer()
+  if(!isPseudoValid(nickname)) return "invalid"
+  if(isPseudoTaken(nickname,players)) return "taken"
+
   const newPlayer={
-    id:"p_"+ Date.now(),
-    nickname:nickname,
-    avatar:avatar,
-    createdAt:new date().tolocaldatestring()
+  id:"p_"+ Date.now(),
+  nickname:nickname,
+  avatar:avatar,
+  createdAt:new Date().toLocaleDateString()
   }
   players.push(newPlayer)
   writeToStorage("players",players)
+  return "success"
+
 }
+
 export function editPlayer() {}
 export function deletePlayer() {}
