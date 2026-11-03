@@ -5,6 +5,14 @@ import { filterGames, saveGame, searchGames } from "./history.js";
 
 export function renderScreen() {}
 
-function profilesRender (){
-    
+function profilesRender (){}
+
+const error=document.querySelector("#error_pseudo");
+
+export function displayPlayerError(status){
+    if(status === "invalid"){
+        error.textContent="Le pseudo doit contenir entre 3 et 15 caractères (lettres et chiffres uniquement)."
+    }else if(status === "taken"){
+        error.textContent="Ce pseudo est déjà pris."
+    }
 }
