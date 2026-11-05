@@ -29,7 +29,7 @@ function isPseudoValid(nickname) {
 }
 
 function isPseudoTaken(nickname,players) {
-return players.some((player)=>player.nickname.toLowerCase().time()=== nickname.toLowerCase().time())  
+return players.some((player)=>player.nickname.toLowerCase().trim() === nickname.toLowerCase().trim())  
   
 }
 
