@@ -1,7 +1,9 @@
 // Handles everything displayed on screen.
 // import { createGame } from "./game.js";
-import { addPlayer, deletePlayer, editPlayer,getPlayer } from "./players.js";
+import { addPlayer, deletePlayer, editPlayer,getPlayer ,getActivePlayer } from "./players.js";
 // import { filterGames, saveGame, searchGames } from "./history.js";
+
+
 
 export function formDisplay() {
     const text1=document.querySelector("#text-1")
@@ -51,15 +53,19 @@ export function formHide(){
     player_form_section.classList.add("hidden")
     players_cards.classList.remove("hidden")
 
-
+    
 }
 
 
 export function profilesRender (){
     const players=getPlayer()
+    const activePlayer=getActivePlayer()
     const playersContainer=document.querySelector("#players_cards")
     playersContainer.innerHTML=""
+
     players.forEach(player => {
+        const isActive=activePlayer && activePlayer.id === player.id
+        
         const html=`
     <div data-id="${player.id}" class="player-profil bg-surface border border-empereur rounded-xl p-4">
       <div class="flex items-center gap-3">
@@ -67,20 +73,24 @@ export function profilesRender (){
         </div>
         <div class="flex-1">
           <h3 class="font-semibold">${player.nickname}</h3>
-          <p class="text-xs text-secondaire">24 parties jouées</p>
+          <p class="text-xs text-secondaire">0 parties jouées</p>
         </div>
         <span class="text-empereur"></span>
       </div>
 
 
       <div class="flex justify-between text-xs mt-3">
-        <span class="text-secondaire">14 victoires au compteur</span>
-        <span class="text-empereur font-semibold">PROFIL SÉLECTIONNÉ</span>
+        <span class="text-secondaire">0 victoires au compteur</span>
+
+        <span class="text-empereur font-semibold">${isActive ? "PROFIL SÉLECTIONNÉ" :""}</span>
       </div>
 
       <div class="grid grid-cols-3 gap-2 mt-3 text-sm">
-        <button class="chose-btn py-2 rounded-md border border-empereur text-empereur bg-empereur/10">Choisi</button>
-        <button class="edit-btn py-2 rounded-md bg-surface-elevee border border-bordure">Modifier</button>
+        <button class="chose-btn py-2 rounded-md border ${
+            isActive ?
+            "border-empereur text-empereur bg-empereur/10" :
+            "bg-surface-elevee border-bordure"}">Choisi</button>
+        <button class="edit-btn  py-2 rounded-md bg-surface-elevee border border-bordure">Modifier</button>
         <button class="delete-btn py-2 rounded-md bg-surface-elevee border border-bordure text-esclave">Supprimer</button>
       </div>
     </div>
@@ -106,3 +116,4 @@ export function displayPlayerError(status){
 export function resetForm(form){
     form.reset()
 }
+
