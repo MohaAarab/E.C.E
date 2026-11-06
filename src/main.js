@@ -20,10 +20,16 @@ export { formDisplay };
 
 
   // event listner for the add profile button
-  add_btn.addEventListener("click",formDisplay)
+  add_btn.addEventListener("click",()=>{
+    formDisplay(),
+    editingPlayerId=null;
+  })
 
   // event listner for the cancel btn on the form
-  cancel_btn.addEventListener("click",formHide)
+  cancel_btn.addEventListener("click",()=>{
+    formHide()
+    editingPlayerId=null;
+  })
 
 
   // event listner for the submit button
