@@ -78,3 +78,13 @@ export function deletePlayer(id) {
   writeToStorage("players",players)
   return "success"
 }
+
+export function selectPlayler(id){
+  writeToStorage("activePlayer",id)
+}
+
+export function getActivePlayer(){
+  const players=getPlayer()
+  const id=readFromStorage("activePlayer")
+  return players.find((player)=>player.id === id)
+}

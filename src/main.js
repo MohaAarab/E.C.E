@@ -1,7 +1,7 @@
 // Starts the app and listens to clicks.
 
 import { formDisplay, displayPlayerError, resetForm , profilesRender,formHide,editProfilFormDisplay} from "./ui.js";
-import { addPlayer, editPlayer,deletePlayer, getPlayer } from "./players.js";
+import { addPlayer, editPlayer,deletePlayer, getPlayer,selectPlayler} from "./players.js";
 
 export { formDisplay };
 
@@ -13,7 +13,6 @@ export { formDisplay };
   const nickname = document.querySelector("#username_input");
   const add_btn=document.querySelector("#profil-add")
   const cancel_btn=document.querySelector("#cancel-player")
-  // const edit_btn=document.querySelector(".edit-btn")
   // const delete_btn=document.querySelector(".delete-btn")
   const players_cards=document.querySelector("#players_cards")
   let editingPlayerId = null;
@@ -90,3 +89,20 @@ export { formDisplay };
     profilesRender()
   })
 
+    // event listner for the choice btn 
+  players_cards.addEventListener("click",(event)=>{
+    const choiceBtn=event.target.closest(".chose-btn")
+    if(!choiceBtn) return
+
+    const clicked=choiceBtn.closest(".player-profil")
+    if(!clicked) return
+
+    const id=clicked.dataset.id
+
+    selectPlayler(id)
+    profilesRender()
+
+
+  })
+
+  
