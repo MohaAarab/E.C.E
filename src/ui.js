@@ -1,6 +1,6 @@
 // Handles everything displayed on screen.
 // import { createGame } from "./game.js";
-import { addPlayer, deletePlayer, editPlayer,getPlayer ,getActivePlayer } from "./players.js";
+import {getPlayer ,getActivePlayer } from "./players.js";
 // import { filterGames, saveGame, searchGames } from "./history.js";
 
 
@@ -9,13 +9,11 @@ export function formDisplay() {
     const text1=document.querySelector("#text-1")
     const players_cards=document.querySelector("#players_cards")
     const profil_add=document.querySelector("#profil-add")
-    const selected_player=document.querySelector("#selected-player")
     const player_form_section=document.querySelector("#player-form-section")
 
     players_cards.classList.add("hidden")
     text1.classList.add("hidden")
     profil_add.classList.add("hidden")
-    selected_player.classList.add("hidden")
     player_form_section.classList.remove("hidden")
 
 
@@ -24,7 +22,6 @@ export function editProfilFormDisplay() {
     const text1=document.querySelector("#text-1")
     const players_cards=document.querySelector("#players_cards")
     const profil_add=document.querySelector("#profil-add")
-    const selected_player=document.querySelector("#selected-player")
     const player_form_section=document.querySelector("#player-form-section")
     const form_title=document.querySelector("#form-title")
     const dir=document.querySelector("#dir")
@@ -32,7 +29,6 @@ export function editProfilFormDisplay() {
     players_cards.classList.add("hidden")
     text1.classList.add("hidden")
     profil_add.classList.add("hidden")
-    selected_player.classList.add("hidden")
     player_form_section.classList.remove("hidden")
     form_title.textContent="Modifier le profil"
     dir.textContent="PROFILS / MODIFIER PROFIL"
@@ -44,12 +40,10 @@ export function formHide(){
     const text1=document.querySelector("#text-1")
     const players_cards=document.querySelector("#players_cards")
     const profil_add=document.querySelector("#profil-add")
-    const selected_player=document.querySelector("#selected-player")
     const player_form_section=document.querySelector("#player-form-section")
 
     text1.classList.remove("hidden")
     profil_add.classList.remove("hidden")
-    selected_player.classList.remove("hidden")
     player_form_section.classList.add("hidden")
     players_cards.classList.remove("hidden")
 
@@ -67,9 +61,10 @@ export function profilesRender (){
         const isActive=activePlayer && activePlayer.id === player.id
         
         const html=`
-    <div data-id="${player.id}" class="player-profil bg-surface border border-empereur rounded-xl p-4">
+    <div data-id="${player.id}" class="player-profil bg-surface border border-empereur rounded-xl p-4 mb-2">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-full border border-empereur flex items-center justify-center">${player.avatar}
+        <div class="w-12 h-12 rounded-full border border-empereur flex items-center justify-center"><img src="src/imgs/${player.avatar}.svg" alt="${player.avatar}" >
+
         </div>
         <div class="flex-1">
           <h3 class="font-semibold">${player.nickname}</h3>
