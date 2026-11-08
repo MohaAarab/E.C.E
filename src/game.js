@@ -1,7 +1,7 @@
+
 // Game rules only; never touches the DOM.
 
-import { startTransition } from "react";
-
+// Returns the camp
 function getCamp(roundNumber) {
   if (roundNumber >= 1 && roundNumber <= 3) return "empereur";
   if (roundNumber >= 4 && roundNumber <= 6) return "esclave";
@@ -9,59 +9,80 @@ function getCamp(roundNumber) {
   if (roundNumber >= 10 && roundNumber <= 12) return "esclave";
 }
 
+// Creates the 5 cards for one player
 function createHand(camp) {
   let hand = ["citoyen", "citoyen", "citoyen", "citoyen"];
-
-  if (camp === "empereur" || camp === "esclave") {
-    hand.push(camp);
-    return hand;
-  }
+  hand.push(camp);
+  return hand;
 }
 
+// Creates both players' hands
 function createHands(camp) {
   let playerHand;
   let computerHand;
+
   if (camp === "empereur") {
     playerHand = createHand("empereur");
     computerHand = createHand("esclave");
-    return { playerHand, computerHand };
   } else {
     playerHand = createHand("esclave");
     computerHand = createHand("empereur");
-    return { playerHand, computerHand };
   }
-}
-// const { playerHand, computerHand } = createHands("esclave");
 
+  return { playerHand, computerHand };
+}
+
+// Shuffles
 function shuffleHand(hand) {
   let handsCopy = [...hand];
-  let r = Math.floor(Math.random() * handsCopy.length);
-  const temp = handsCopy[r];
-  handsCopy[r] = handsCopy[handsCopy.length - 1];
-  handsCopy[handsCopy.length - 1] = temp;
+
+  for (let i = handsCopy.length - 1; i > 0; i--) {
+    let r = Math.floor(Math.random() * (i + 1));
+
+    let temp = handsCopy[i];
+    handsCopy[i] = handsCopy[r];
+    handsCopy[r] = temp;
+  }
+
   return handsCopy;
 }
 
+// Compares two cards
 function duel(cardPlayer, cardComputer) {
-  if (cardPlayer === "citoyen" && cardComputer === "citoyen") return "égalité";
-  else if (cardPlayer === "empereur" && cardComputer === "citoyen")
+  if (cardPlayer === "citoyen" && cardComputer === "citoyen") {
+    return "égalité";
+  } else if (
+    cardPlayer === "empereur" &&
+    cardComputer === "citoyen"
+  ) {
     return "victoire";
-  else if (cardPlayer === "citoyen" && cardComputer === "esclave")
+  } else if (
+    cardPlayer === "citoyen" &&
+    cardComputer === "esclave"
+  ) {
     return "victoire";
-  else if (cardPlayer === "esclave" && cardComputer === "empereur")
+  } else if (
+    cardPlayer === "esclave" &&
+    cardComputer === "empereur"
+  ) {
     return "victoire";
-  else return "défaite";
+  } else {
+    return "défaite";
+  }
 }
 
+// Removes a played card
 function removeCard(hand, index) {
   const newHand = [...hand];
   newHand.splice(index, 1);
   return newHand;
 }
 
-const getRandomCardIndex = (hand) => Math.floor(Math.random() * hand.length);
+// Returns a random card index
+const getRandomCardIndex = (hand) =>
+  Math.floor(Math.random() * hand.length);
 
-// should i add the condition on this function to handel the rounds
+// Creates shuffled hands for a round
 function createRoundHands(camp) {
   const { playerHand, computerHand } = createHands(camp);
 
@@ -71,92 +92,90 @@ function createRoundHands(camp) {
   };
 }
 
-function playDuel(playerHand, computerHand, playerIndex) {
+// Plays one duel
+export function playDuel(playerHand, computerHand, playerIndex) {
   const playerCard = playerHand[playerIndex];
+
   const computerIndex = getRandomCardIndex(computerHand);
   const computerCard = computerHand[computerIndex];
 
   const result = duel(playerCard, computerCard);
+
   const playerNewHand = removeCard(playerHand, playerIndex);
   const computerNewHand = removeCard(computerHand, computerIndex);
 
-  return { playerCard, computerCard, result, playerNewHand, computerNewHand };
+  return {
+    playerCard,
+    computerCard,
+    result,
+    playerNewHand,
+    computerNewHand,
+  };
 }
 
-function calculateRoundPoints(camp, result) {
-  let score = 0;
-  if (camp === "empereur" && result === "victoire") score++;
-  if (camp === "esclave" && result === "victoire") score += 5;
-  return score;
+// Calculates points according to the winning camp
+function calculateRoundPoints(camp) {
+  if (camp === "empereur") return 1;
+  if (camp === "esclave") return 5;
+  return 0;
 }
 
-// this is not the done version the playerindex is fixed for the entire function
-function playRound(camp, playerHand, computerHand, playerIndex) {
-  let duelCount = 0;
-  let history = [];
-  let winner = null;
+// Updates the score after a round
+export function updateScore(score, camp, winner) {
+  if (winner === "draw") return score;
 
-  while (duelCount < 5 && winner === null) {
-    const duelResult = playDuel(playerHand, computerHand, playerIndex);
+  let winnerCamp = camp;
 
-    playerHand = duelResult.playerNewHand;
-    computerHand = duelResult.computerNewHand;
-    duelCount++;
-
-    history.push({
-      playerCard: duelResult.playerCard,
-      computerCard: duelResult.computerCard,
-      result: duelResult.result,
-    });
-
-    if (duelResult.result === "victoire") winner = "player";
-    else if (duelResult.result === "défaite") winner = "computer";
-
-    if (winner !== null) break;
+  if (winner === "computer") {
+    if (camp === "empereur") {
+      winnerCamp = "esclave";
+    } else {
+      winnerCamp = "empereur";
+    }
   }
 
-  const points = calculateRoundPoints(
-    camp,
-    winner === "player" ? "victoire" : "défaite",
-  );
+  const points = calculateRoundPoints(winnerCamp);
 
-  return { winner, points, duelCount, history, playerHand, computerHand };
+  return {
+    ...score,
+    [winner]: score[winner] + points,
+  };
 }
 
-function updateScore(score, camp, winner) {
-  const points = calculateRoundPoints(
-    camp,
-    winner === "player" ? "victoire" : "defait",
-  );
+// Checks whether the round has a winner
+export function resolveRound(result, playerHand) {
+  if (result === "victoire") return "player";
+  if (result === "défaite") return "computer";
 
-  return { ...score, [winner]: score[winner] + points };
+  if (playerHand.length === 0) return "draw";
+
+  return null;
 }
 
-function getFirstPlayer(camp, duelNb) {
-  if (duelNb % 2 !== 0) return camp;
-  return camp === "empereur" ? "esclave" : "empereur";
-}
-
+// Returns the current group
 const getGroup = (roundNumber) => Math.ceil(roundNumber / 3);
 
+// Checks whether all rounds are finished
 const isGameFinished = (roundNumber) => roundNumber > 12;
 
+// Determines the  winner
 function getGameResult(score) {
   if (score.player > score.computer) return "player";
   if (score.player < score.computer) return "computer";
-
   return "draw";
 }
 
-function startNextRound(gameState) {
+// Starts the next round or finishes the game
+export function startNextRound(gameState) {
   const nextRound = gameState.roundNumber + 1;
 
-  if (isGameFinished(nextRound))
+  if (isGameFinished(nextRound)) {
     return {
       ...gameState,
       status: "finished",
       winner: getGameResult(gameState.score),
     };
+  }
 
   const camp = getCamp(nextRound);
   const { playerHand, computerHand } = createRoundHands(camp);
@@ -169,6 +188,29 @@ function startNextRound(gameState) {
     playerHand,
     computerHand,
     duelNb: 1,
+    roundWinner: null,
     status: "playing",
+  };
+}
+
+// Creates a new game
+export function createGame() {
+  const camp = getCamp(1);
+  const { playerHand, computerHand } = createRoundHands(camp);
+
+  return {
+    roundNumber: 1,
+    group: 1,
+    camp,
+    playerHand,
+    computerHand,
+    duelNb: 1,
+    score: {
+      player: 0,
+      computer: 0,
+    },
+    roundWinner: null,
+    status: "playing",
+    winner: null,
   };
 }
