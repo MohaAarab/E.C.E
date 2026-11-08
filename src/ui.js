@@ -18,6 +18,7 @@ export function formDisplay() {
 
 
 }
+
 export function editProfilFormDisplay() {
     const text1=document.querySelector("#text-1")
     const players_cards=document.querySelector("#players_cards")
@@ -54,7 +55,8 @@ export function formHide(){
 export function profilesRender (){
     const players=getPlayer()
     const activePlayer=getActivePlayer()
-    const playersContainer=document.querySelector("#players_cards")
+    const playersContainer = document.querySelector("#players_cards")
+    const act_player = document.querySelector("#act-player");
     playersContainer.innerHTML=""
 
     players.forEach(player => {
@@ -65,7 +67,7 @@ export function profilesRender (){
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-full border border-empereur flex items-center justify-center"><img src="src/imgs/${player.avatar}.svg" alt="${player.avatar}" >
 
-        </div>
+        </div>class
         <div class="flex-1">
           <h3 class="font-semibold">${player.nickname}</h3>
           <p class="text-xs text-secondaire">0 parties jouées</p>
@@ -91,8 +93,7 @@ export function profilesRender (){
     </div>
         `
         playersContainer.innerHTML+=html;
-        
-        
+        isActive ? act_player.textContent=`${player.nickname}` : ""
     });
 
 }
@@ -108,6 +109,8 @@ export function displayPlayerError(status){
         error.textContent=""
     }
 }
+
+
 export function resetForm(form){
     form.reset()
 }
