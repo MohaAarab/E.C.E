@@ -1,5 +1,5 @@
 import { getActivePlayer } from "./players.js";
-
+import { readFromStorage, writeToStorage } from "./storage.js";
 import { playDuel,resolveRound,updateScore,startNextRound } from "./game.js";
 
 const act_player = document.querySelector("#player-name");
@@ -122,22 +122,67 @@ function selectCard(event) {
 
 playerHandContainer.addEventListener("click", selectCard);
 
+function saveGameToHistory() {
+  const activePlayer = getActivePlayer();
 
+  if (!activePlayer) return;
+
+  let historyGames = readFromStorage("gameHistory") || [];
+
+  let result = "draw";
+
+  if (currentGameState.winner === "player") {
+    result = "victory";
+  } else if (currentGameState.winner === "computer") {
+    result = "defeat";
+  }
+
+  const gameRecord = {
+    id: Date.now(),
+    playerId: activePlayer.id,
+    playerName: activePlayer.nickname,
+    result: result,
+    date: new Date().toISOString(),
+    playerScore: currentGameState.score.player,
+    computerScore: currentGameState.score.computer,
+  };
+
+  historyGames.push(gameRecord);
+
+  writeToStorage("gameHistory", historyGames);
+}
 
 function handlePlayCard() {
   if (!currentGameState) return;
+
   if (currentGameState.status === "round-finished") {
     currentGameState = startNextRound(currentGameState);
+
     renderGame(currentGameState);
 
     playerSlot.innerHTML = "+";
     computerSlot.innerHTML = "";
+
+    if (currentGameState.status === "finished") {
+      displayGameResult();
+      saveGameToHistory();
+
+      playButton.disabled = true;
+      playButton.textContent = "Partie terminée";
+
+      return;
+    }
+
     document.querySelector("#turn-title").textContent = "Nouveau duel";
     document.querySelector("#turn-message").textContent = "";
+
     return;
   }
 
+  if (currentGameState.status === "finished") return;
+
   if (selectedCardIndex === null) return;
+
   const result = playDuel(
     currentPlayerHand,
     currentComputerHand,
@@ -159,23 +204,33 @@ function handlePlayCard() {
       currentGameState.camp,
       winner
     );
+
     currentGameState.status = "round-finished";
   }
+
   renderGame(currentGameState);
+
   playerSlot.innerHTML = `
-    <img src="./src/imgs/${result.playerCard}.webp"
-      alt="${result.playerCard}" class="w-24 h-28">
+    <img
+      src="./src/imgs/${result.playerCard}.webp"
+      alt="${result.playerCard}"
+      class="w-24 h-28"
+    >
   `;
 
   computerSlot.innerHTML = `
-    <img src="./src/imgs/${result.computerCard}.webp"
-      alt="${result.computerCard}" class="w-24 h-28">
+    <img
+      src="./src/imgs/${result.computerCard}.webp"
+      alt="${result.computerCard}"
+      class="w-24 h-28"
+    >
   `;
 
   const turnTitle = document.querySelector("#turn-title");
   const turnMessage = document.querySelector("#turn-message");
+
   turnTitle.textContent = result.result.toUpperCase();
-  
+
   if (winner === "player") {
     turnMessage.textContent = "Vous avez gagné cette manche !";
   } else if (winner === "computer") {
@@ -190,9 +245,7 @@ function handlePlayCard() {
     playerSlot.innerHTML = "+";
     computerSlot.innerHTML = "";
   }
-};
-
-playButton.addEventListener("click", handlePlayCard);
+}
 
 function displayGameResult() {
   const title = document.querySelector("#turn-title");
