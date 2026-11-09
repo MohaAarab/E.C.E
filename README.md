@@ -123,6 +123,11 @@ This project was developed to practice:
 
 Developed as part of a web development learning project at **YouCode**.
 
+## Links
+
+Planification:  https://trello.com/b/zpcOOmLH/sprint-2-breif-2
+GitHub pages: https://mohaaarab.github.io/E.C.E/index.html
+
 ---
 
 *E.C.E. — Choose your card. Challenge your opponent. Claim victory.*
