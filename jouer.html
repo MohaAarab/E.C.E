@@ -12,16 +12,17 @@
 
 <body class="bg-fond text-creme font-texte">
 
-
   <header class="bg-surface border-b border-bordure p-4">
-    <h1 class="font-titre text-2xl tracking-wide uppercase font-bold">E.C.E</h1>
-    <p  class="text-xs text-secondaire mt-2"> Joueur sélectionné : <span id="player-name" ></span></p>
+    <div class="max-w-5xl mx-auto">
+      <h1 class="font-titre text-2xl tracking-wide uppercase font-bold">E.C.E</h1>
+      <p class="text-xs text-secondaire mt-2">Joueur sélectionné : <span id="player-name"></span></p>
+    </div>
   </header>
 
-  <main class="p-4 pb-40 space-y-4">
+  <main class="p-4 sm:p-6 pb-40 space-y-4 max-w-5xl mx-auto">
 
     <!-- Page title -->
-    <div class="flex items-end justify-between">
+    <div class="flex flex-wrap items-end justify-between gap-2">
       <div>
         <p class="text-[10px] uppercase text-empereur">Duel face à l'ordinateur</p>
         <h2 class="font-titre text-2xl uppercase">L'arène</h2>
@@ -31,21 +32,21 @@
 
     <!-- Round info -->
     <div class="bg-surface border border-bordure rounded-xl p-4">
-      <div class="flex justify-between text-sm">
+      <div class="flex justify-between text-sm gap-2">
         <p class="font-semibold">Manche <span id="round-current"></span>/12</p>
         <p class="text-secondaire">Groupe <span id="group-current"></span>/4</p>
       </div>
 
-      <div class="flex justify-between text-[11px] text-secondaire mt-3">
+      <div class="flex flex-wrap justify-between gap-2 text-[11px] text-secondaire mt-3">
         <p>Votre camp : <span id="player-side" class="text-empereur">Empereur</span></p>
         <p>Vous jouez en premier</p>
       </div>
     </div>
 
     <!-- Score -->
-    <div class="bg-surface border border-bordure rounded-xl p-4 flex items-center justify-between">
+    <div class="bg-surface border border-bordure rounded-xl p-4 flex items-center justify-between gap-2">
       <span id="score-player-name" class="text-sm">Aurelius</span>
-      <p class="font-titre text-3xl">
+      <p class="font-titre text-2xl sm:text-3xl">
         <span id="score-player" class="text-empereur"></span>
         <span class="text-secondaire">:</span>
         <span id="score-computer"></span>
@@ -55,32 +56,35 @@
 
     <!-- Computer hand -->
     <div>
-      <div class="flex justify-between text-sm mb-2">
+      <div class="flex justify-between text-sm mb-2 gap-2">
         <p class="font-semibold">Ordinateur</p>
         <p class="text-xs text-secondaire">5 cartes face cachée</p>
       </div>
 
-      <div id="computer-hand" class="grid grid-cols-5 gap-2">
+      <div id="computer-hand" class="grid grid-cols-5 gap-1 sm:gap-2">
+      </div>
     </div>
 
     <!-- Play area -->
     <div class="bg-surface border border-bordure rounded-xl p-4 mt-2 mb-2">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between gap-2">
 
         <!-- Your card -->
-        <div class="text-center">
+        <div class="text-center flex-1">
           <p class="text-[10px] text-secondaire mb-2">Votre carte</p>
-          <div id="player-slot" class="w-24 h-32 rounded-lg border-2 border-dashed border-empereur bg-surface-elevee flex items-center justify-center text-2xl text-empereur">
+          <div id="player-slot" class="w-20 h-28 sm:w-24 sm:h-32 mx-auto rounded-lg border-2 border-dashed border-empereur bg-surface-elevee flex items-center justify-center text-2xl text-empereur">
             +
           </div>
         </div>
 
-        <span class="text-xs text-secondaire"><img class="h-4 w-4" src="src/imgs/arena.svg" alt=""> VS</span>
+        <span class="text-xs text-secondaire flex items-center gap-1">
+          <img class="h-4 w-4" src="src/imgs/arena.svg" alt=""> VS
+        </span>
 
         <!-- Computer card -->
-        <div class="text-center">
+        <div class="text-center flex-1">
           <p class="text-[10px] text-secondaire mb-2">Ordinateur</p>
-          <div id="computer-slot" class="w-24 h-32 rounded-lg border border-bordure bg-surface-elevee flex items-center justify-center text-2xl text-empereur">
+          <div id="computer-slot" class="w-20 h-28 sm:w-24 sm:h-32 mx-auto rounded-lg border border-bordure bg-surface-elevee flex items-center justify-center text-2xl text-empereur">
             <img src="src/imgs/pc.svg" alt="pc">
           </div>
         </div>
@@ -94,30 +98,29 @@
 
     <!-- Your hand -->
     <div>
-      <div class="flex justify-between text-sm mb-2">
+      <div class="flex justify-between text-sm mb-2 gap-2">
         <p class="font-semibold">Votre main</p>
         <p class="text-xs text-secondaire">Empereur sélectionné</p>
       </div>
 
-      <div id="player-hand" class="grid grid-cols-5 gap-2">
- 
+      <div id="player-hand" class="grid grid-cols-5 gap-1 sm:gap-2">
+      </div>
     </div>
 
     <!-- Play button -->
     <button id="play-card" class="mt-4 w-full bg-empereur text-fond font-semibold py-3 rounded-lg hover:bg-survivant">
-       Jouer cette carte
+      Jouer cette carte
     </button>
 
   </main>
 
   <!-- Bottom navigation -->
   <nav class="fixed bottom-0 left-0 right-0 bg-surface border-t border-bordure grid grid-cols-3 text-xs p-2">
-    <a href="index.html" class="flex flex-col items-center py-2 text-secondaire ">
+    <a href="index.html" class="flex flex-col items-center py-2 text-secondaire">
       <span><img src="src/imgs/person.svg" alt="profil" class="h-6 w-6"></span>Profils
     </a>
-    <a href="jouer.html" class="flex flex-col items-center py-2  rounded-lg bg-empereur/15 text-empereur">
-      <span><img src="src/imgs/arena.svg" alt="jouer" class="h-6 w-6">
-        </span>Jouer
+    <a href="jouer.html" class="flex flex-col items-center py-2 rounded-lg bg-empereur/15 text-empereur">
+      <span><img src="src/imgs/arena.svg" alt="jouer" class="h-6 w-6"></span>Jouer
     </a>
     <a href="historique.html" class="flex flex-col items-center py-2 text-secondaire">
       <span><img src="src/imgs/history.svg" alt="Historique" class="h-6 w-6"></span>Historique
