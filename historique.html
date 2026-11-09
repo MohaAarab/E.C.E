@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E.C.E - Historique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="./dist/output.css" rel="stylesheet">
+  <script type="module" src="./src/ui-history.js" defer></script>
+  <script type="module" src="./src/main-history.js" defer></script>
+</head>
+
+<body class="bg-fond text-creme font-texte">
+
+  <header class="bg-surface border-b border-bordure p-4">
+    <h1 class="font-titre text-2xl tracking-wide uppercase font-bold">E.C.E</h1>
+    <p class="text-xs text-secondaire mt-2"> Joueur sélectionné : <span id="player-name"></span></p>
+  </header>
+
+  <main class="p-4 pb-40 space-y-4">
+
+    <!-- Page title -->
+    <div>
+      <p class="text-[10px] uppercase text-empereur">Les traces de vos duels</p>
+      <h2 class="font-titre text-2xl uppercase">Historique</h2>
+      <p class="text-sm text-secondaire mt-1">Vos parties, vos victoires, vos retours dans l'arène.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="relative">
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-secondaire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="M21 21l-4.3-4.3"></path>
+      </svg>
+      <input
+        id="history-search"
+        type="text"
+        placeholder="Rechercher un pseudo"
+        autocomplete="off"
+        class="w-full bg-surface text-creme rounded-xl pl-10 pr-3 h-11 placeholder:text-secondaire border border-bordure focus:border-pioche outline-none"
+      />
+    </div>
+
+    <!-- Result filters -->
+    <div id="filter-result" class="flex flex-wrap gap-2 text-xs">
+      <button class="px-3 py-1.5 rounded-md border border-empereur text-empereur bg-empereur/10">Toutes</button>
+      <button class="px-3 py-1.5 rounded-md border border-bordure bg-surface text-secondaire">Victoires</button>
+      <button class="px-3 py-1.5 rounded-md border border-bordure bg-surface text-secondaire">Défaites</button>
+      <button class="px-3 py-1.5 rounded-md border border-bordure bg-surface text-secondaire">Égalités</button>
+    </div>
+
+    <!-- Date filters -->
+    <div id="filter-date" class="flex flex-wrap gap-2 text-xs">
+      <button class="px-3 py-1.5 rounded-md border border-bordure bg-surface text-secondaire">Aujourd'hui</button>
+      <button class="px-3 py-1.5 rounded-md border border-bordure bg-surface text-secondaire">7 jours</button>
+      <button class="px-3 py-1.5 rounded-md border border-empereur text-empereur bg-empereur/10">Tout</button>
+    </div>
+
+    <!-- Count + sort -->
+    <div class="flex justify-between text-xs">
+      <p class="font-semibold"><span id="games-count">1</span> partie</p>
+      <p class="text-secondaire">Plus récentes en premier</p>
+    </div>
+
+    <!-- History list -->
+    <div id="history-list" class="space-y-3">
+
+      <!-- Game card -->
+
+
+    </div>
+
+  </main>
+
+  <!-- Bottom navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-surface border-t border-bordure grid grid-cols-3 text-xs p-2">
+    <a href="index.html" class="flex flex-col items-center py-2 text-secondaire">
+      <span><img src="src/imgs/person.svg" class="h-6 w-6" alt="profils"></span>Profils
+    </a>
+    <a href="jouer.html" class="flex flex-col items-center py-2 text-secondaire">
+      <span><img src="src/imgs/arena.svg" class="h-6 w-6" alt="arena"></span>Jouer
+    </a>
+    <a href="historique.html" class="flex flex-col items-center py-2 rounded-lg bg-empereur/15 text-empereur">
+      <span><img src="src/imgs/history.svg" class="h-6 w-6" alt="historique"></span>Historique
+    </a>
+  </nav>
+
+</body>
+</html>
