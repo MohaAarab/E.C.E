@@ -3,6 +3,7 @@ import { readFromStorage, writeToStorage } from "./storage.js";
 import { playDuel,resolveRound,updateScore,startNextRound } from "./game.js";
 
 const act_player = document.querySelector("#player-name");
+const player_name = document.querySelector("#score-player-name")
 const round_number = document.querySelector("#round-current");
 const Group = document.querySelector("#group-current");
 const Camp = document.querySelector("#player-side");
@@ -28,6 +29,7 @@ export function displayActivePlayer() {
   }
 
   act_player.textContent = activePlayer.nickname;
+  player_name.textContent = activePlayer.nickname;
 }
 
 

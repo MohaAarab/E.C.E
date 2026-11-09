@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,242 +15,176 @@
 
   <!-- Header -->
   <header class="bg-surface border-b border-bordure p-4">
-    <h1 class="font-titre text-2xl tracking-wide uppercase font-bold">E.C.E</h1>
-    <p class="text-xs text-secondaire mt-2"> Joueur sélectionné : <span id="act-player"></span></p>
+    <div class="max-w-5xl mx-auto">
+      <h1 class="font-titre text-2xl tracking-wide uppercase font-bold">E.C.E</h1>
+      <p class="text-xs text-secondaire mt-2">Joueur sélectionné : <span id="act-player"></span></p>
+    </div>
   </header>
 
   <!-- Main -->
-  <main class="p-4 pb-40 space-y-4">
+  <main class="p-4 sm:p-6 pb-40 space-y-4 max-w-5xl mx-auto">
 
-    <div id="text-1" class="">
+    <div id="text-1">
       <p class="text-[10px] uppercase text-empereur">Votre place dans l'arène</p>
       <h2 class="font-titre text-2xl uppercase">Les profils</h2>
       <p class="text-sm text-secondaire mt-1">Choisissez le joueur qui entre dans l'arène.</p>
     </div>
-<!-- add porfile button  -->
-    <button id="profil-add" class=" w-full bg-empereur text-fond font-semibold py-3 rounded-lg">
+
+    <!-- Add profile button -->
+    <button id="profil-add" class="w-full bg-empereur text-fond font-semibold py-3 rounded-lg">
       + Ajouter un profil
     </button>
 
-  <!-- profiles container -->
-<div id="players_cards"></div>
+    <!-- Profiles container -->
+    <div id="players_cards"></div>
 
-</div>
+    <!-- Player form -->
+    <section id="player-form-section" class="space-y-6 hidden">
 
+      <!-- Form header -->
+      <div>
+        <p id="dir" class="text-[10px] uppercase text-empereur">PROFILS / NOUVEAU PROFIL</p>
 
-    <!-- player form mockup -->
-<section id="player-form-section" class="space-y-6 hidden">
-  <!-- Form header -->
-  <div>
-    <p id="dir" class="text-[10px] uppercase text-empereur">PROFILS / NOUVEAU PROFIL</p>
+        <h2 id="form-title" class="font-titre text-2xl uppercase">Créer un profil</h2>
 
-    <h2 id="form-title" class="font-titre text-2xl uppercase">Créer un profil</h2>
-
-    <p class="text-sm text-secondaire mt-1">
-      Un pseudo, un emblème, votre identité dans l’arène.
-    </p>
-  </div>
-
-  <!-- Player form -->
-  <div class="mx-auto max-w-4xl p-1">
-    <form
-      id="player-form"
-      class="flex flex-col border-2 border-bordure p-4 rounded-2xl bg-surface"
-    >
-      <!-- Nickname -->
-      <label for="username_input" class="mb-2 p-1 text-xl font-bold text-creme">
-        Pseudo
-      </label>
-
-      <input
-        id="username_input"
-        name="nickname"
-        type="text"
-        placeholder="Votre Pseudo"
-        minlength="3"
-        maxlength="15"
-        required
-        autocomplete="off"
-        class="bg-fond text-creme rounded-md pl-3 h-10 placeholder:text-secondaire border-2 border-bordure focus:border-pioche outline-none mb-3"
-      />
-
-      <p
-        id="error_pseudo"
-        class="text-sm text-red-500 mb-3"
-        aria-live="polite"
-      ></p>
-
-      <!-- Avatar selection -->
-      <fieldset>
-        <legend class="mb-6 text-xl font-bold text-creme">Votre avatar</legend>
-
-        <div class="grid grid-cols-4 gap-2">
-          <!-- Dragon -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="dragon"
-              required
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/dragon.svg" alt="dragon" ></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Dragon</span
-              >
-            </div>
-          </label>
-
-          <!-- Tigre -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="tigre"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/tigre.svg" alt="tigre"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Tigre</span
-              >
-            </div>
-          </label>
-
-          <!-- Loup -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="loup"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/loup.svg" alt="loup"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur">Loup</span>
-            </div>
-          </label>
-
-          <!-- Requin -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="requin"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/requin.svg" alt="requin"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Requin</span
-              >
-            </div>
-          </label>
-
-          <!-- Pingouin -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="pingouin"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/pingouin.svg" alt="pingouin"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Pingouin</span
-              >
-            </div>
-          </label>
-
-          <!-- Vache -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="vache"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/vache.svg" alt="vache"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Vache</span
-              >
-            </div>
-          </label>
-
-          <!-- Panthère -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="panthere"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/panthere.svg" alt="panthere"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Panthère</span
-              >
-            </div>
-          </label>
-
-          <!-- Aigle -->
-          <label class="relative block cursor-pointer">
-            <input
-              type="radio"
-              name="avatar"
-              value="aigle"
-              class="peer sr-only"
-            />
-            <div
-              class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10"
-            >
-              <span class="text-3xl"><img src="src/imgs/aigle.svg" alt="aigle"></span>
-              <span class="mt-2 text-sm font-semibold text-empereur"
-                >Aigle</span
-              >
-            </div>
-          </label>
-        </div>
-      </fieldset>
-
-      <!-- Buttons -->
-      <div class="mt-4 flex flex-col gap-3">
-        <button
-          id="save-player"
-          type="submit"
-          class="border-2 bg-empereur outline-none w-full py-3 text-fond font-semibold rounded-lg hover:bg-creme"
-        >
-          Enregistrer
-        </button>
-
-        <button
-          id="cancel-player"
-          type="button"
-          class="border-2 border-bordure bg-surface-elevee w-full py-3 text-creme font-semibold rounded-lg"
-        >
-          Annuler
-        </button>
+        <p class="text-sm text-secondaire mt-1">
+          Un pseudo, un emblème, votre identité dans l’arène.
+        </p>
       </div>
-    </form>
-  </div>
-</section>
+
+      <!-- Player form -->
+      <div class="mx-auto max-w-4xl p-1">
+        <form
+          id="player-form"
+          class="flex flex-col border-2 border-bordure p-3 sm:p-4 rounded-2xl bg-surface"
+        >
+
+          <!-- Nickname -->
+          <label for="username_input" class="mb-2 p-1 text-xl font-bold text-creme">
+            Pseudo
+          </label>
+
+          <input
+            id="username_input"
+            name="nickname"
+            type="text"
+            placeholder="Votre Pseudo"
+            minlength="3"
+            maxlength="15"
+            required
+            autocomplete="off"
+            class="bg-fond text-creme rounded-md pl-3 h-10 placeholder:text-secondaire border-2 border-bordure focus:border-pioche outline-none mb-3"
+          />
+
+          <p
+            id="error_pseudo"
+            class="text-sm text-red-500 mb-3"
+            aria-live="polite"
+          ></p>
+
+          <!-- Avatar selection -->
+          <fieldset>
+            <legend class="mb-6 text-xl font-bold text-creme">Votre avatar</legend>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+
+              <!-- Dragon -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="dragon" required class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/dragon.svg" alt="dragon"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Dragon</span>
+                </div>
+              </label>
+
+              <!-- Tigre -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="tigre" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/tigre.svg" alt="tigre"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Tigre</span>
+                </div>
+              </label>
+
+              <!-- Loup -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="loup" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/loup.svg" alt="loup"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Loup</span>
+                </div>
+              </label>
+
+              <!-- Requin -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="requin" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/requin.svg" alt="requin"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Requin</span>
+                </div>
+              </label>
+
+              <!-- Pingouin -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="pingouin" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/pingouin.svg" alt="pingouin"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Pingouin</span>
+                </div>
+              </label>
+
+              <!-- Vache -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="vache" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/vache.svg" alt="vache"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Vache</span>
+                </div>
+              </label>
+
+              <!-- Panthère -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="panthere" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/panthere.svg" alt="panthere"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Panthère</span>
+                </div>
+              </label>
+
+              <!-- Aigle -->
+              <label class="relative block cursor-pointer">
+                <input type="radio" name="avatar" value="aigle" class="peer sr-only" />
+                <div class="flex flex-col items-center justify-center border-2 border-bordure rounded-xl bg-fond p-2 sm:p-4 text-center peer-checked:border-empereur peer-checked:bg-empereur/10">
+                  <span class="text-3xl"><img src="src/imgs/aigle.svg" alt="aigle"></span>
+                  <span class="mt-2 text-sm font-semibold text-empereur">Aigle</span>
+                </div>
+              </label>
+
+            </div>
+          </fieldset>
+
+          <!-- Buttons -->
+          <div class="mt-4 flex flex-col gap-3">
+            <button
+              id="save-player"
+              type="submit"
+              class="border-2 bg-empereur outline-none w-full py-3 text-fond font-semibold rounded-lg hover:bg-creme"
+            >
+              Enregistrer
+            </button>
+
+            <button
+              id="cancel-player"
+              type="button"
+              class="border-2 border-bordure bg-surface-elevee w-full py-3 text-creme font-semibold rounded-lg"
+            >
+              Annuler
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
 
   </main>
 
@@ -259,8 +194,7 @@
       <span><img src="src/imgs/person.svg" alt="profil" class="h-6 w-6"></span>Profils
     </a>
     <a href="jouer.html" class="flex flex-col items-center py-2 text-secondaire">
-      <span><img src="src/imgs/arena.svg" alt="jouer" class="h-6 w-6">
-        </span>Jouer
+      <span><img src="src/imgs/arena.svg" alt="jouer" class="h-6 w-6"></span>Jouer
     </a>
     <a href="historique.html" class="flex flex-col items-center py-2 text-secondaire">
       <span><img src="src/imgs/history.svg" alt="Historique" class="h-6 w-6"></span>Historique
